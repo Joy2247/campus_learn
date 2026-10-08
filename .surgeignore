@@ -1,0 +1,7 @@
+node_modules
+pc-anatomy/node_modules
+.git
+cloudflared.exe
+*.log
+pc-anatomy/tests
+pc-anatomy/scripts

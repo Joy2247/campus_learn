@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CampusLearn — Computer Science Fundamentals</title>
+  
+  <!-- Illoca-Inspired High-Craft Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Geist+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="./src/style.css" />
+</head>
+<body>
+
+  <!-- Generative Animated Tech Canvas & Ambient Glows -->
+  <canvas id="bg-canvas"></canvas>
+  <div class="ambient-light-1"></div>
+  <div class="ambient-light-2"></div>
+
+  <!-- Illoca Real-Time Telemetry HUD -->
+  <div class="illoca-hud" id="illocaHud">
+    <div class="hud-pulse"></div>
+    <div class="hud-item"><span id="hudX">X 0.00</span></div>
+    <div class="hud-item"><span id="hudY">Y 0.00</span></div>
+    <div class="hud-item" style="color: #64748b;">TERM <span>2026-27</span></div>
+    <div class="hud-item" style="color: #64748b;">FILES <span id="hudFiles">52</span></div>
+  </div>
+
+  <!-- ==========================================================================
+       Top Header Navigation
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <!-- Brand Logo -->
+      <a href="#home" class="brand-wrapper" aria-label="CampusLearn Home">
+        <div class="brand-logo-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">CampusLearn</span>
+          <span class="brand-tagline">Learn &bull; Build &bull; Grow</span>
+        </div>
+      </a>
+
+      <!-- Header Navigation Links & Search -->
+      <nav class="header-nav" aria-label="Primary Navigation">
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="javascript:void(0)" onclick="openAboutModal()" class="nav-link">About</a></li>
+          <li><a href="#modules" class="nav-link">Courses</a></li>
+          <li><a href="#study-materials" class="nav-link">Resources</a></li>
+          <li><a href="javascript:void(0)" onclick="openContactModal()" class="nav-link">Contact</a></li>
+        </ul>
+
+        <!-- 3D PC Lab Direct Launcher -->
+        <a href="./pc-anatomy-landing.html" class="header-lab-badge" title="Launch Interactive 3D PC Anatomy Lab">
+          <span style="font-size: 13px;">⚡</span>
+          <span>3D Lab</span>
+        </a>
+
+        <!-- Search Button -->
+        <button class="header-search-btn" id="openSearchBtn" aria-label="Search course and materials" title="Search (Press /)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       Main 3-Column Page Layout
+       ========================================================================== -->
+  <main class="main-wrapper" id="home">
+    <div class="page-grid">
+
+      <!-- ==========================================
+           1. Left Sidebar Column
+           ========================================== -->
+      <aside class="left-column" aria-label="Sidebar Menu">
+        <!-- Navigation Menu Card -->
+        <div class="left-nav-card">
+          <ul class="sidebar-nav-list">
+            <li class="sidebar-nav-item active">
+              <a href="#home" class="sidebar-nav-btn active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                <span>Home</span>
+              </a>
+            </li>
+            <li class="sidebar-nav-item">
+              <a href="javascript:void(0)" onclick="openOverviewModal()" class="sidebar-nav-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+                <span>Course Overview</span>
+              </a>
+            </li>
+            <li class="sidebar-nav-item">
+              <a href="javascript:void(0)" onclick="openSyllabusModal()" class="sidebar-nav-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                <span>Syllabus</span>
+              </a>
+            </li>
+            <li class="sidebar-nav-item">
+              <a href="#study-materials" class="sidebar-nav-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span>Study Materials</span>
+              </a>
+            </li>
+            <li class="sidebar-nav-item">
+              <a href="javascript:void(0)" onclick="openAssignmentModal(1)" class="sidebar-nav-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                <span>Assignments</span>
+              </a>
+            </li>
+            <li class="sidebar-nav-item">
+              <a href="#useful-links" class="sidebar-nav-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+                <span>Useful Links</span>
+              </a>
+            </li>
+            <li class="sidebar-nav-item">
+              <a href="javascript:void(0)" onclick="openFaqModal()" class="sidebar-nav-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <span>FAQ</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Motivational Quote Card -->
+        <div class="motivational-card">
+          <div class="motivational-header">
+            <div class="motivational-icon-wrap">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+              </svg>
+            </div>
+            <button type="button" class="motivational-refresh-btn" onclick="cycleMotivationalQuote()" title="Click to display another engineering quote">
+              <span>✦ New Quote</span>
+            </button>
+          </div>
+          <div class="motivational-quote-wrap" id="motivationalQuoteWrap">
+            <p class="motivational-quote" id="motivationalQuoteText">
+              "Small steps today, big dreams tomorrow!"
+            </p>
+            <span class="motivational-author" id="motivationalQuoteAuthor">// CampusLearn Pedagogy</span>
+          </div>
+          <div class="illoca-annotation">// step by step towards mastery &rarr;</div>
+          <!-- Stylized Decorative Bottom Waves -->
+          <svg class="motivational-waves" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="#93c5fd" fill-opacity="0.6" d="M0,192L48,197.3C96,203,192,213,288,192C384,171,480,117,576,117.3C672,117,768,171,864,192C960,213,1056,203,1152,176C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+          </svg>
+        </div>
+      </aside>
+
+      <!-- ==========================================
+           2. Center Main Column
+           ========================================== -->
+      <section class="center-column" aria-label="Course Main Content">
+
+        <!-- 1. Hero Card -->
+        <div class="hero-card">
+          <img src="./assets/images/hero.jpg" alt="Laptop on study desk with programming book and notebook" class="hero-bg-img" />
+          <div class="hero-overlay"></div>
+          <div class="hero-content">
+            <div style="display: inline-flex; align-items: center; gap: 7px; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); padding: 3px 10px; border-radius: 20px; font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; color: #7dd3fc; margin-bottom: 12px; letter-spacing: 0.5px;">
+              <span style="width: 6px; height: 6px; border-radius: 50%; background: #38bdf8; box-shadow: 0 0 8px #38bdf8; display: inline-block;"></span>
+              <span>ACADEMIC TERM 2026-27 &bull; ACTIVE ENROLLMENT</span>
+            </div>
+            <h1 class="hero-title">Computer Science<br>Fundamentals</h1>
+            <p class="hero-subtitle">Learn the basics. Build the future.</p>
+            <div class="hero-actions">
+              <!-- Illoca Kinetic Rolling-Text Button -->
+              <a href="#modules" class="illoca-btn">
+                <div class="illoca-btn-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </div>
+                <div class="illoca-btn-roll">
+                  <div class="roll-item roll-primary">Explore the Course</div>
+                  <div class="roll-item roll-secondary">Explore the Course &rarr;</div>
+                </div>
+              </a>
+
+              <a href="./pc-anatomy-landing.html" class="btn-secondary-lab" title="Open 3D PC Anatomy Study Lab">
+                <span>⚡ 3D PC Anatomy Lab</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Welcome Card -->
+        <article class="welcome-card" id="overview">
+          <h2 class="welcome-heading">Welcome to Computer Science Fundamentals</h2>
+          <p class="welcome-desc">
+            This course introduces the basic concepts of computer science, including problem solving, programming, and web technologies. It is designed for first-year students who are new to the subject.
+          </p>
+
+          <!-- 4 Circular Highlights (Learn, Practice, Build, Grow) -->
+          <div class="features-grid">
+            <!-- Learn -->
+            <div class="feature-item" onclick="openPathwayModal('learn')">
+              <div class="feature-icon-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+              </div>
+              <h3 class="feature-title">Learn</h3>
+              <p class="feature-text">Understand core concepts and terminology.</p>
+            </div>
+
+            <!-- Practice -->
+            <div class="feature-item" onclick="openPracticeQuizModal()">
+              <div class="feature-icon-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+              </div>
+              <h3 class="feature-title">Practice</h3>
+              <p class="feature-text">Solve problems and write simple programs.</p>
+            </div>
+
+            <!-- Build -->
+            <div class="feature-item" onclick="openPathwayModal('build')">
+              <div class="feature-icon-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18h6"></path>
+                  <path d="M10 22h4"></path>
+                  <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5.76.76 1.23 1.52 1.41 2.5h6.18z"></path>
+                </svg>
+              </div>
+              <h3 class="feature-title">Build</h3>
+              <p class="feature-text">Create small projects to apply your knowledge.</p>
+            </div>
+
+            <!-- Grow -->
+            <div class="feature-item" onclick="openPathwayModal('grow')">
+              <div class="feature-icon-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              </div>
+              <h3 class="feature-title">Grow</h3>
+              <p class="feature-text">Gain confidence and prepare for advanced courses.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. Course Modules Section with Dynamic State Tracker -->
+        <section class="modules-card" id="modules">
+          <div class="section-header">
+            <div class="section-header-left">
+              <span class="section-header-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="3" y1="9" x2="21" y2="9"></line>
+                  <line x1="9" y1="21" x2="9" y2="9"></line>
+                </svg>
+              </span>
+              <h2 class="section-title">Course Modules</h2>
+            </div>
+            <span style="font-family: var(--font-hand); font-size: 15px; color: var(--brand-accent-coral);">
+              // click status badge to toggle completion
+            </span>
+          </div>
+
+          <!-- Dynamic Progress Bar -->
+          <div class="progress-header-info">
+            <span>Overall Course Progress</span>
+            <span class="progress-count" id="progressPercentage">25% (1 of 4 Modules)</span>
+          </div>
+          <div class="course-progress-container">
+            <div class="course-progress-bar" id="courseProgressBar"></div>
+          </div>
+
+          <div class="modules-table-container">
+            <table class="modules-table">
+              <thead>
+                <tr>
+                  <th class="col-module">Module</th>
+                  <th class="col-topic">Topic</th>
+                  <th class="col-week">Week</th>
+                  <th class="col-status">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="module-row-1">
+                  <td class="col-module">[01]</td>
+                  <td class="col-topic">
+                    <a href="javascript:void(0)" class="topic-link" onclick="openModuleModal(1)">Introduction to Computers</a>
+                  </td>
+                  <td class="col-week">Week 1</td>
+                  <td class="col-status">
+                    <span class="status-badge completed" id="badge-1" onclick="toggleModuleStatus(1)">Completed</span>
+                  </td>
+                </tr>
+                <tr id="module-row-2">
+                  <td class="col-module">[02]</td>
+                  <td class="col-topic">
+                    <a href="javascript:void(0)" class="topic-link" onclick="openModuleModal(2)">Programming Basics</a>
+                  </td>
+                  <td class="col-week">Week 2 &ndash; 3</td>
+                  <td class="col-status">
+                    <span class="status-badge in-progress" id="badge-2" onclick="toggleModuleStatus(2)">In Progress</span>
+                  </td>
+                </tr>
+                <tr id="module-row-3">
+                  <td class="col-module">[03]</td>
+                  <td class="col-topic">
+                    <a href="javascript:void(0)" class="topic-link" onclick="openModuleModal(3)">Web Technologies (HTML &amp; CSS)</a>
+                  </td>
+                  <td class="col-week">Week 4 &ndash; 5</td>
+                  <td class="col-status">
+                    <span class="status-badge not-started" id="badge-3" onclick="toggleModuleStatus(3)">Not Started</span>
+                  </td>
+                </tr>
+                <tr id="module-row-4">
+                  <td class="col-module">[04]</td>
+                  <td class="col-topic">
+                    <a href="javascript:void(0)" class="topic-link" onclick="openModuleModal(4)">Problem Solving &amp; Logic</a>
+                  </td>
+                  <td class="col-week">Week 6</td>
+                  <td class="col-status">
+                    <span class="status-badge not-started" id="badge-4" onclick="toggleModuleStatus(4)">Not Started</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 4. Featured 3D Study Lab: PC Anatomy Explorer -->
+        <div class="pc-lab-feature-card">
+          <div class="pc-lab-thumb-wrap">
+            <img src="./assets/images/pc-assembled.png" alt="3D Desktop PC Anatomy Model" />
+            <div style="position: absolute; bottom: 6px; left: 6px; background: rgba(10, 25, 47, 0.88); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 4px; padding: 2px 6px; font-family: var(--font-mono); font-size: 9.5px; color: #7dd3fc; display: flex; align-items: center; gap: 4px;">
+              <span style="width: 5px; height: 5px; border-radius: 50%; background: #38bdf8; box-shadow: 0 0 6px #38bdf8; display: inline-block;"></span>
+              <span>EXPLODED ATX</span>
+            </div>
+          </div>
+          <div class="pc-lab-info">
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px;">
+              <div class="pc-lab-pill">
+                <span>⚡</span>
+                <span>Module 1 Practical Lab &bull; Computer Architecture</span>
+              </div>
+              <span style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34d399; font-family: var(--font-mono); font-size: 10px; font-weight: 600; padding: 1px 7px; border-radius: 12px; display: inline-flex; align-items: center; gap: 4px;">
+                <span style="width: 5px; height: 5px; border-radius: 50%; background: #10b981; box-shadow: 0 0 6px #10b981;"></span>
+                <span>3D ENGINE READY</span>
+              </span>
+            </div>
+            <h3 class="pc-lab-title">Interactive PC Anatomy 3D Study Lab</h3>
+            <p class="pc-lab-desc">
+              Explore 3D exploded views of desktop hardware. Inspect CPU sockets, Motherboard VRM phases, GPU PCIe lanes, dual-channel RAM, and thermal airflow curves.
+            </p>
+            <!-- Hardware Spec Tags -->
+            <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px;">
+              <span style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.14); padding: 2px 7px; border-radius: 4px; font-family: var(--font-mono); font-size: 10.5px; color: #cbd5e1;">LGA1700 / AM5</span>
+              <span style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.14); padding: 2px 7px; border-radius: 4px; font-family: var(--font-mono); font-size: 10.5px; color: #cbd5e1;">PCIe 5.0 x16</span>
+              <span style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.14); padding: 2px 7px; border-radius: 4px; font-family: var(--font-mono); font-size: 10.5px; color: #cbd5e1;">DDR5 Dual-Channel</span>
+              <span style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.14); padding: 2px 7px; border-radius: 4px; font-family: var(--font-mono); font-size: 10.5px; color: #cbd5e1;">Liquid AIO Loop</span>
+            </div>
+            <div class="pc-lab-actions">
+              <a href="./pc-anatomy-landing.html" class="btn-lab-launch">
+                <span>Launch 3D Explorer</span>
+                <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+              <a href="./pc-anatomy/" target="_blank" class="btn-lab-landing">
+                <span>Direct 3D Tool</span>
+              </a>
+              <button class="btn-lab-landing" onclick="openPracticeQuizModal()">
+                <span>Hardware Quiz</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Gallery Section -->
+        <section class="gallery-card" id="gallery">
+          <div class="section-header">
+            <div class="section-header-left">
+              <span class="section-header-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+              </span>
+              <h2 class="section-title">Gallery</h2>
+            </div>
+            <span style="font-family: var(--font-hand); font-size: 15px; color: var(--text-muted);">// click to inspect</span>
+          </div>
+
+          <div class="gallery-grid">
+            <!-- Image 1 -->
+            <div class="gallery-item" onclick="openLightbox('./assets/images/code.jpg', 'Learning to Code')" title="Click to inspect: Learning to Code">
+              <div class="gallery-img-wrapper">
+                <img src="./assets/images/code.jpg" alt="Learning to Code — Code editor on laptop screen" loading="lazy" />
+                <div class="gallery-hover-overlay">
+                  <span class="gallery-inspect-pill">
+                    <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <span>Inspect</span>
+                  </span>
+                </div>
+              </div>
+              <div class="gallery-caption">
+                <span>Learning to Code</span>
+                <span style="font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);">// 01</span>
+              </div>
+            </div>
+
+            <!-- Image 2 -->
+            <div class="gallery-item" onclick="openLightbox('./assets/images/study.jpg', 'Study Materials')" title="Click to inspect: Study Materials">
+              <div class="gallery-img-wrapper">
+                <img src="./assets/images/study.jpg" alt="Study Materials — Books and notepad" loading="lazy" />
+                <div class="gallery-hover-overlay">
+                  <span class="gallery-inspect-pill">
+                    <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <span>Inspect</span>
+                  </span>
+                </div>
+              </div>
+              <div class="gallery-caption">
+                <span>Study Materials</span>
+                <span style="font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);">// 02</span>
+              </div>
+            </div>
+
+            <!-- Image 3 -->
+            <div class="gallery-item" onclick="openLightbox('./assets/images/team.jpg', 'Team Learning')" title="Click to inspect: Team Learning">
+              <div class="gallery-img-wrapper">
+                <img src="./assets/images/team.jpg" alt="Team Learning — University students collaborating" loading="lazy" />
+                <div class="gallery-hover-overlay">
+                  <span class="gallery-inspect-pill">
+                    <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" fill="none" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <span>Inspect</span>
+                  </span>
+                </div>
+              </div>
+              <div class="gallery-caption">
+                <span>Team Learning</span>
+                <span style="font-family: var(--font-mono); font-size: 10px; color: var(--text-muted);">// 03</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. Real Study Materials Explorer (Using C:\xyz\Studies) -->
+        <section class="modules-card" id="study-materials">
+          <div class="section-header">
+            <div class="section-header-left">
+              <span class="section-header-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+              </span>
+              <h2 class="section-title">Course Study Materials &amp; Lecture Handouts</h2>
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 12px; color: var(--brand-blue); font-weight: 600;" id="materialsCountBadge">52 Verified Files</span>
+          </div>
+
+          <!-- Materials Filter Controls -->
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;" id="materialsCategoryBar">
+            <button class="status-badge completed" style="cursor: pointer;" onclick="filterMaterials('all', this)">All (52)</button>
+            <button class="status-badge not-started" style="cursor: pointer;" onclick="filterMaterials('Problem Solving in C', this)">Problem Solving in C</button>
+            <button class="status-badge not-started" style="cursor: pointer;" onclick="filterMaterials('Data Science Principles', this)">Data Science</button>
+            <button class="status-badge not-started" style="cursor: pointer;" onclick="filterMaterials('Mathematics', this)">Math &amp; Stats</button>
+            <button class="status-badge not-started" style="cursor: pointer;" onclick="filterMaterials('Question', this)">Question Banks</button>
+            <button class="status-badge not-started" style="cursor: pointer;" onclick="filterMaterials('Reference', this)">Handwritten Notes</button>
+            <button class="status-badge not-started" style="cursor: pointer;" onclick="filterMaterials('Schedules', this)">Schedules &amp; Tests</button>
+            <button class="status-badge not-started" style="cursor: pointer;" onclick="filterMaterials('Marketing', this)">Marketing &amp; Selling</button>
+            <button class="status-badge not-started" style="cursor: pointer;" onclick="filterMaterials('Admin', this)">Admin &amp; Admissions</button>
+          </div>
+
+          <!-- Search Materials Box -->
+          <div style="margin-bottom: 14px;">
+            <input type="text" id="materialSearchInput" class="form-input" placeholder="Search handouts, syllabus, question papers, CIA notes, formula sheets..." oninput="handleMaterialSearch(this.value)" />
+          </div>
+
+          <!-- Materials Dynamic List -->
+          <div id="materialsListContainer" style="max-height: 360px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 8px; padding: 4px; background: #ffffff;">
+            <div style="padding: 16px; text-align: center; color: var(--text-muted); font-size: 13px;">
+              Loading course materials from academic library...
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Two-Column Card: Key Topics & Useful Links -->
+        <section class="info-columns-card">
+          <div class="info-columns-grid">
+            <!-- Key Topics -->
+            <div class="info-col">
+              <div class="section-header">
+                <div class="section-header-left">
+                  <span class="section-header-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="8" y1="6" x2="21" y2="6"></line>
+                      <line x1="8" y1="12" x2="21" y2="12"></line>
+                      <line x1="8" y1="18" x2="21" y2="18"></line>
+                      <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                      <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                      <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                    </svg>
+                  </span>
+                  <h2 class="section-title">Key Topics</h2>
+                </div>
+              </div>
+              <ul class="info-list">
+                <li class="info-list-item" onclick="openTopicDetail('What is a Computer?')">
+                  <span class="bullet-dot"></span>
+                  <span>What is a Computer?</span>
+                </li>
+                <li class="info-list-item" onclick="openTopicDetail('Operating Systems')">
+                  <span class="bullet-dot"></span>
+                  <span>Operating Systems</span>
+                </li>
+                <li class="info-list-item" onclick="openTopicDetail('Programming Languages')">
+                  <span class="bullet-dot"></span>
+                  <span>Programming Languages</span>
+                </li>
+                <li class="info-list-item" onclick="openTopicDetail('Web Development (HTML, CSS)')">
+                  <span class="bullet-dot"></span>
+                  <span>Web Development (HTML, CSS)</span>
+                </li>
+                <li class="info-list-item" onclick="openTopicDetail('Problem Solving Techniques')">
+                  <span class="bullet-dot"></span>
+                  <span>Problem Solving Techniques</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Useful Links -->
+            <div class="info-col" id="useful-links">
+              <div class="section-header">
+                <div class="section-header-left">
+                  <span class="section-header-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                  </span>
+                  <h2 class="section-title">Useful Links</h2>
+                </div>
+              </div>
+              <ul class="info-list">
+                <li class="info-list-item">
+                  <span class="bullet-dot"></span>
+                  <a href="https://www.w3schools.com/html/" target="_blank" rel="noopener noreferrer" class="info-link">W3Schools (HTML &amp; CSS)</a>
+                </li>
+                <li class="info-list-item">
+                  <span class="bullet-dot"></span>
+                  <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript" target="_blank" rel="noopener noreferrer" class="info-link">JavaScript Tutorial</a>
+                </li>
+                <li class="info-list-item">
+                  <span class="bullet-dot"></span>
+                  <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="info-link">GitHub (Student Projects)</a>
+                </li>
+                <li class="info-list-item">
+                  <span class="bullet-dot"></span>
+                  <a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer" class="info-link">MDN Web Docs</a>
+                </li>
+                <li class="info-list-item">
+                  <span class="bullet-dot"></span>
+                  <a href="https://www.coursera.org" target="_blank" rel="noopener noreferrer" class="info-link">Coursera (Free Courses)</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8. Callout Banner (CTA) -->
+        <div class="cta-banner">
+          <div class="cta-left">
+            <div class="cta-icon-box">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="cta-title">Ready to take the next step?</h3>
+              <p class="cta-desc">Explore the course materials and start your learning journey today!</p>
+            </div>
+          </div>
+          <!-- Illoca Kinetic Rolling-Text Button -->
+          <a href="#modules" class="illoca-btn">
+            <div class="illoca-btn-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </div>
+            <div class="illoca-btn-roll">
+              <div class="roll-item roll-primary">Go to Course</div>
+              <div class="roll-item roll-secondary">Go to Course &rarr;</div>
+            </div>
+          </a>
+        </div>
+
+      </section>
+
+      <!-- ==========================================
+           3. Right Sidebar Column
+           ========================================== -->
+      <aside class="right-column" aria-label="Course Resources & Contacts">
+        <!-- Campus Image Card -->
+        <div class="campus-img-card" onclick="openLightbox('./assets/images/campus.jpg', 'CampusLearn University Grounds')" title="View University Campus Grounds">
+          <img src="./assets/images/campus.jpg" alt="University campus hall and grounds" loading="lazy" />
+        </div>
+
+        <!-- Quick Links Card -->
+        <div class="sidebar-card" id="syllabus">
+          <div class="section-header">
+            <div class="section-header-left">
+              <span class="section-header-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+              </span>
+              <h2 class="section-title">Quick Links</h2>
+            </div>
+          </div>
+          <ul class="quick-links-list">
+            <li class="quick-link-item">
+              <a href="javascript:void(0)" onclick="handleQuickLink('Course Syllabus')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+                <span>Course Syllabus</span>
+              </a>
+            </li>
+            <li class="quick-link-item">
+              <a href="javascript:void(0)" onclick="handleQuickLink('Download Notes (PDF)')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+                <span>Download Notes (PDF)</span>
+              </a>
+            </li>
+            <li class="quick-link-item">
+              <a href="javascript:void(0)" onclick="handleQuickLink('Programming Resources')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+                <span>Programming Resources</span>
+              </a>
+            </li>
+            <li class="quick-link-item">
+              <a href="javascript:void(0)" onclick="handleQuickLink('Student Forum')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+                <span>Student Forum</span>
+              </a>
+            </li>
+            <li class="quick-link-item">
+              <a href="javascript:void(0)" onclick="handleQuickLink('External References')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+                <span>External References</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Upcoming Events Card -->
+        <div class="sidebar-card" id="assignments">
+          <div class="section-header">
+            <div class="section-header-left">
+              <span class="section-header-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+              </span>
+              <h2 class="section-title">Upcoming Events</h2>
+            </div>
+          </div>
+          <ul class="events-list">
+            <li class="event-item" onclick="openAssignmentModal(1)" title="Click to view Assignment 1 details">
+              <span class="event-arrow">&#9654;</span>
+              <div class="event-details">
+                <span class="event-title">Assignment 1 Due</span>
+                <span class="event-date">Apr 15, 2025</span>
+              </div>
+            </li>
+            <li class="event-item" onclick="openPracticeQuizModal()" title="Click to take practice quiz">
+              <span class="event-arrow">&#9654;</span>
+              <div class="event-details">
+                <span class="event-title">Quiz 1</span>
+                <span class="event-date">Apr 25, 2025</span>
+              </div>
+            </li>
+            <li class="event-item" onclick="openEventDetail('Midterm Exam', 'May 10, 2025', 'Comprehensive examination covering Computer Architecture, Programming Foundations, and Web Basics.')" title="Click to view Exam details">
+              <span class="event-arrow">&#9654;</span>
+              <div class="event-details">
+                <span class="event-title">Midterm Exam</span>
+                <span class="event-date">May 10, 2025</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact Us Card -->
+        <div class="sidebar-card" id="contact">
+          <div class="section-header">
+            <div class="section-header-left">
+              <span class="section-header-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2-2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </span>
+              <h2 class="section-title">Contact Us</h2>
+            </div>
+            <button type="button" onclick="openContactModal()" style="background: none; border: none; color: var(--brand-blue); font-size: 11px; cursor: pointer; text-decoration: underline; font-weight: 600; padding: 0;">Full Directory &rarr;</button>
+          </div>
+
+          <!-- Sample Direct Faculty & Academic Contact Details -->
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px 12px; margin-bottom: 14px; font-size: 11.5px; color: #475569; box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.04);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px dashed #e2e8f0;">
+              <span style="font-family: var(--font-mono); font-weight: 700; color: #0d3a66; font-size: 10.5px; text-transform: uppercase;">Faculty Desk</span>
+              <button type="button" onclick="fillSampleContactForm()" title="Pre-fill form with sample inquiry" style="background: rgba(25, 118, 210, 0.08); border: 1px solid rgba(25, 118, 210, 0.25); color: #1976d2; font-size: 10px; font-weight: 600; border-radius: 4px; padding: 2px 7px; cursor: pointer;">Fill Sample</button>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 4px; line-height: 1.45;">
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <span style="font-size: 12px;">📧</span>
+                <a href="mailto:cs-fundamentals@campuslearn.edu" style="color: #1976d2; text-decoration: none; font-weight: 500;">cs-fundamentals@campuslearn.edu</a>
+              </div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <span style="font-size: 12px;">📞</span>
+                <span style="font-family: var(--font-mono);">+1 (555) 438-2026 / ext. 402</span>
+              </div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <span style="font-size: 12px;">🏛️</span>
+                <span>Turing Academic Block, Rm 304</span>
+              </div>
+              <div style="display: flex; gap: 6px; align-items: center;">
+                <span style="font-size: 12px;">🕒</span>
+                <span>Mon &ndash; Fri: 09:00 &ndash; 17:00 IST</span>
+              </div>
+            </div>
+          </div>
+
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="userName" class="form-label">Name <span class="required-star">*</span></label>
+              <input type="text" id="userName" name="name" class="form-input" placeholder="Enter your name" required />
+            </div>
+            <div class="form-group">
+              <label for="userEmail" class="form-label">Email <span class="required-star">*</span></label>
+              <input type="email" id="userEmail" name="email" class="form-input" placeholder="Enter your email" required />
+            </div>
+            <div class="form-group">
+              <label for="userMessage" class="form-label">Message <span class="required-star">*</span></label>
+              <textarea id="userMessage" name="message" class="form-textarea" placeholder="Your message..." rows="3" required></textarea>
+            </div>
+            <!-- Illoca Kinetic Rolling-Text Submit Button -->
+            <button type="submit" class="illoca-btn" id="submitContactBtn" style="width: 100%; margin-top: 6px;">
+              <div class="illoca-btn-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </div>
+              <div class="illoca-btn-roll" style="width: 100%; justify-content: center;">
+                <div class="roll-item roll-primary" id="btnRollText1">Send Message</div>
+                <div class="roll-item roll-secondary" id="btnRollText2">Transmit Now &rarr;</div>
+              </div>
+            </button>
+          </form>
+        </div>
+
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       Full-Width Footer
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <!-- Footer Brand -->
+        <a href="#home" class="brand-wrapper" aria-label="CampusLearn Home">
+          <div class="brand-logo-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">CampusLearn</span>
+            <span class="brand-tagline">Learn &bull; Build &bull; Grow</span>
+          </div>
+        </a>
+
+        <!-- Footer Links -->
+        <ul class="footer-nav-links">
+          <li><a href="#home" class="footer-nav-link">Home</a></li>
+          <li class="footer-divider">|</li>
+          <li><a href="javascript:void(0)" onclick="openAboutModal()" class="footer-nav-link">About</a></li>
+          <li class="footer-divider">|</li>
+          <li><a href="#modules" class="footer-nav-link">Courses</a></li>
+          <li class="footer-divider">|</li>
+          <li><a href="#study-materials" class="footer-nav-link">Resources</a></li>
+          <li class="footer-divider">|</li>
+          <li><a href="javascript:void(0)" onclick="openContactModal()" class="footer-nav-link">Contact</a></li>
+        </ul>
+
+        <!-- Social Icons -->
+        <div class="social-links">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook" title="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95C18.05 21.45 22 17.19 22 12z"/></svg>
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Twitter" title="Twitter">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn" title="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+          </a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube" title="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Copyright Notice & Network Status -->
+      <div class="footer-bottom">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="width: 7px; height: 7px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981; display: inline-block;"></span>
+          <span style="font-family: var(--font-mono); font-size: 10.5px; color: #a0c2e4; font-weight: 500;">CAMPUS NETWORK: ALL SYSTEMS ONLINE (99.98% UPTIME)</span>
+        </div>
+        <p class="copyright-text">&copy; 2025 CampusLearn University. All rights reserved. &bull; Architectural UX by illoca craft</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       Interactive Modals & Dialogs
+       ========================================================================== -->
+
+  <!-- Universal Modal (used for About, Overview, Syllabus, Quizzes, Forums) -->
+  <div class="modal-overlay" id="generalModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="generalModalTitle">Information</h3>
+        <button class="modal-close-btn" onclick="closeGeneralModal()" aria-label="Close modal">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="generalModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Search Modal -->
+  <div class="modal-overlay" id="searchModal" role="dialog" aria-modal="true" aria-labelledby="searchModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="searchModalTitle">Search Course, Materials &amp; PC Lab</h3>
+        <button class="modal-close-btn" onclick="closeSearchModal()" aria-label="Close search">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="searchInput" class="form-input" placeholder="Type module, topic, C programming, PC Anatomy, limit, question paper..." autofocus style="font-size: 14px; padding: 10px 14px; margin-bottom: 14px;" />
+        <div id="searchResults" style="font-size: 13px; color: var(--text-muted); max-height: 320px; overflow-y: auto;">
+          Type keywords like <em>C Programming</em>, <em>Data Science</em>, <em>Limits</em>, <em>Motherboard</em>, <em>Assignment</em>...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gallery Lightbox Modal -->
+  <div class="modal-overlay" id="lightboxModal" role="dialog" aria-modal="true" onclick="closeLightbox(event)">
+    <div class="lightbox-card" onclick="event.stopPropagation()">
+      <img src="" alt="" id="lightboxImg" class="lightbox-img" />
+      <div id="lightboxCaption" class="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Interactive JavaScript -->
+  <script src="./src/app.js"></script>
+</body>
+</html>

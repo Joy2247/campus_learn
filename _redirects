@@ -1,0 +1,3 @@
+/api/materials  /api/materials.json  200
+/pc-anatomy  /pc-anatomy/dist/index.html  200
+/pc-anatomy/*  /pc-anatomy/dist/:splat  200
